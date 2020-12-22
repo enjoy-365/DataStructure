@@ -17,7 +17,7 @@ struct Node {
 void Insert(ElementType X, List L, Position P);
 void Delete(ElementType X, List L);
 Position Find(ElementType X, List L);
-void PrintList(List L);
+void PrintList(List L, FILE* fp2);
 List MakeEmpty(List L);
 int IsEmpty(List L);
 int IsLast(Position P, List L);
@@ -37,29 +37,59 @@ int main(void) {
 		sscanf(line, "%c", &type);
 		if (type == 'i') {
 			sscanf(line, "%c%d%[^\n]s", &check, &id, name);
-			printf("%c ", check);
+			/*printf("%c ", check);
 			printf("%d ", id);
 			printf("%s ", name);
-			printf("\n");
+			printf("\n");*/
 		}
 		else if (type == 'd') {
 			sscanf(line, "%d", &id);
-			printf("%d ", id);
-			printf("\n");
+			/*printf("%d ", id);
+			printf("\n");*/
 		}
 		else if (type == 'f') {
+
 			sscanf(line, "%d", &id);
-			printf("%d ", id);
-			printf("\n");
+			/*printf("%d ", id);
+			printf("\n");*/
 		}
 		else
 			// type이 p일 때이다.
 			printf("%c ", type);
-			printf("\n");
+		printf("\n");
 	}
 
 
 	fclose(fp1);
 	fclose(fp2);
 
+}
+
+List MakeEmpty(List L) {
+	L = (List)malloc(sizeof(struct Node));
+	L->next = NULL;
+
+	return L;
+}
+int IsEmpty(List L) {
+	return L->next == NULL;
+}
+int IsLast(Position P, List L) {
+	return P->next == NULL;
+}
+Position Find(ElementType X, List L) {
+	Position P = L->next;
+	while (P != NULL && P->element.studentID != X.studentID) {
+		P = P->next;
+	}
+	return P;
+}
+void PrintList(List L, FILE* fp2) {
+	Position P = L->next;
+	fprintf(fp2, "-----LIST-----\n");
+	while (P != NULL) {
+		fprintf(fp2, "%d %s\n", P->element.studentID, P->element.studentName);
+		P = P->next;
+	}
+	fprintf(fp2, "--------------");
 }
