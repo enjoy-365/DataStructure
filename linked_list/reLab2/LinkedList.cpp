@@ -47,19 +47,19 @@ int main(void) {
 			temp.studentName = (char*)malloc(strlen(trimmed) + 1);
 			strcpy(temp.studentName, trimmed);
 			if (Insert(temp, h)) {
-				printf("Insertion Success : %d\n", temp.studentID);
+				fprintf(fp2, "Insertion Success : %d\n", temp.studentID);
 				Position P = h->next;
-				printf("Current List >");
-				printf(" %d %s", P->element.studentID, P->element.studentName);
+				fprintf(fp2, "Current List >");
+				fprintf(fp2, " %d %s", P->element.studentID, P->element.studentName);
 				P = P->next;
 				while (P != NULL) {
-					printf("-%d %s", P->element.studentID, P->element.studentName);
+					fprintf(fp2, "-%d %s", P->element.studentID, P->element.studentName);
 					P = P->next;
 				}
-				printf("\n");
+				fprintf(fp2, "\n");
 			}
 			else {
-				printf("Insertion Failed. ID %d already exists.\n", temp.studentID);
+				fprintf(fp2, "Insertion Failed. ID %d already exists.\n", temp.studentID);
 			}
 
 			/*printf("%c ", check);
@@ -75,20 +75,20 @@ int main(void) {
 			ElementType temp;
 			temp.studentID = id;
 			if (Delete(temp, h)) {
-				printf("Deletion Success : %d\n", id);
+				fprintf(fp2, "Deletion Success : %d\n", id);
 				Position P = h->next;
-				printf("Current List > ");
+				fprintf(fp2, "Current List > ");
 				while (P != NULL) {
-					printf("%d %s", P->element.studentID, P->element.studentName);
+					fprintf(fp2, "%d %s", P->element.studentID, P->element.studentName);
 					P = P->next;
 					if (P != NULL) {
-						printf("-");
+						fprintf(fp2, "-");
 					}
 				}
-				printf("\n");
+				fprintf(fp2, "\n");
 			}
 			else {
-				printf("Deletion Failed : Studdent ID %d is not in the list.\n", id);
+				fprintf(fp2, "Deletion Failed : Student ID %d is not in the list.\n", id);
 			}
 			/*printf("%d ", id);
 			printf("\n");*/
@@ -99,10 +99,10 @@ int main(void) {
 			temp.studentID = id;
 			Position res = Find(temp, h);
 			if (res != NULL) {
-				printf("Find Success : %d %s\n", id, res->element.studentName);
+				fprintf(fp2, "Find Success : %d %s\n", id, res->element.studentName);
 			}
 			else {
-				printf("Find %d Failed. There is no student ID\n", id);
+				fprintf(fp2, "Find %d Failed. There is no student ID\n", id);
 			}
 
 			/*printf("%d ", id);
@@ -110,13 +110,7 @@ int main(void) {
 		}
 		else {
 			// type이 p일 때이다.
-			Position P = h->next;
-			printf("-----LIST-----\n");
-			while (P != NULL) {
-				printf("%d %s\n", P->element.studentID, P->element.studentName);
-				P = P->next;
-			}
-			printf("--------------");
+			PrintList(h, fp2);
 		}
 	}
 
