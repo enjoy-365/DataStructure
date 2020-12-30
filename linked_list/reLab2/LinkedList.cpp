@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <iostream>
 
 typedef struct Node* PtrToNode;
 typedef PtrToNode List;
@@ -175,6 +176,7 @@ int Delete(ElementType X, List L) {
 		}
 
 		prev->next = target->next;
+		free(target->element.studentName);
 		free(target);
 		target = NULL;
 
@@ -191,6 +193,7 @@ void DeleteList(List L) {
 
 	while (P != NULL) {
 		tmp = P->next;
+		free(P->element.studentName);
 		free(P);
 		P = tmp;
 	}
