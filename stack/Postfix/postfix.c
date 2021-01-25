@@ -122,6 +122,15 @@ int main() {
 	postfix[idx] = '\0';
 	fprintf(fp2, "Postfix Form : %s\n", postfix);
 
+	//if you use int postfix[105]
+	/*
+	fprintf(fp2, "Postfix Form : ");
+	for (int i = 0; i < idx; i++) {
+		fprintf(fp2, "%c", postfix[i]);
+	}
+	fprintf(fp2, "\n");
+	*/
+
 	//for checking postfix
 	/*for (int i = 0; i < idx; i++) {
 		printf("%c", postfix[i]);
