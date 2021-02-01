@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct Node {
+
+};
+
 int main() {
 	int cnt;
 	char c;
