@@ -2,8 +2,9 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
-#define DEBUG
+//#define DEBUG
 
 void PrintDebug(const char* format, ...) {
 #ifdef DEBUG
@@ -64,6 +65,7 @@ int main() {
 		else if (strcmp(cmd, "d") == 0) {
 			fscanf(fp1, "%d", &v);
 			PrintDebug("delete %d\n", v);
+			proot = DeleteNode(v, proot, fp2);
 		}
 		else if (strcmp(cmd, "f") == 0) {
 			fscanf(fp1, "%d", &v);
@@ -103,13 +105,16 @@ int main() {
 TreePtr InsertNode(int value, TreePtr root, FILE* fp2) {
 	if (root == NULL) {
 		root = (TreePtr)malloc(sizeof(struct TreeNode));
-		if (root == NULL) {
+		/*if (root == NULL) {
 			printf("Out of space!\n");
 		}
 		else {
 			root->value = value;
 			root->left = root->right = NULL;
-		}
+		}*/
+		assert(root != NULL);
+		root->value = value;
+		root->left = root->right = NULL;
 	}
 	else if (value < root->value) {
 		root->left = InsertNode(value, root->left, fp2);
@@ -125,17 +130,18 @@ TreePtr InsertNode(int value, TreePtr root, FILE* fp2) {
 }
 TreePtr DeleteNode(int value, TreePtr root, FILE* fp2) {
 	TreePtr Tmp;
-	if (root == NULL) fprintf(fp2, "Element not found\n");
+	PrintDebug("deletion start\n");
+	if (root == NULL) fprintf(fp2, "Deletion failed. %d does not exist.\n", value);
 	else if (value < root->value) {
-		DeleteNode(value, root->left, fp2);
+		root->left = DeleteNode(value, root->left, fp2);
 	}
 	else if (value > root->value) {
-		DeleteNode(value, root->right, fp2);
+		root->right = DeleteNode(value, root->right, fp2);
 	}
 	else if (root->left && root->right) {
-		Tmp = FindMin(root->right);
+		Tmp = FindMax(root->left);
 		root->value = Tmp->value;
-		root->right = DeleteNode(root->value, root->right, fp2);
+		root->left = DeleteNode(root->value, root->left, fp2);
 	}
 	else {
 		Tmp = root;
@@ -166,21 +172,21 @@ TreePtr FindNode(int value, TreePtr root, FILE* fp2) {
 	}
 }
 void PrintInorder(TreePtr root, FILE* fp2) {
-	if (root) {
+	if (root != NULL) {
 		PrintInorder(root->left, fp2);
 		fprintf(fp2, " %d", root->value);
 		PrintInorder(root->right, fp2);
 	}
 }
 void PrintPreorder(TreePtr root, FILE* fp2) {
-	if (root) {
+	if (root != NULL) {
 		fprintf(fp2, " %d", root->value);
 		PrintPreorder(root->left, fp2);
 		PrintPreorder(root->right, fp2);
 	}
 }
 void PrintPostorder(TreePtr root, FILE* fp2) {
-	if (root) {
+	if (root != NULL) {
 		PrintPostorder(root->left, fp2);
 		PrintPostorder(root->right, fp2);
 		fprintf(fp2, " %d", root->value);
