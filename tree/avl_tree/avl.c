@@ -27,6 +27,7 @@ struct AVLNode {
 };
 
 int Height(Position P);
+int Max(int a, int b);
 AVLTree Insert(int x, AVLTree T);
 Position SingleRotateWithLeft(Position K);
 Position SingleRotateWithRight(Position K);
@@ -50,22 +51,60 @@ int main() {
 	return 0;
 }
 
-/*
 int Height(Position P) {
-
+	if (P == NULL) {
+		return -1;
+	}
+	else {
+		return P->h;
+	}
+}
+int Max(int a, int b) {
+	return a > b ? a : b;
 }
 AVLTree Insert(int x, AVLTree T) {
+	if (T == NULL) {
+		T = (AVLTree)malloc(sizeof(struct AVLNode));
+		if (T == NULL) {
+			PrintDebug("Out of Space!\n");
+		}
+		else {
+			T->element = x;
+			T->h = 0;
+			T->left = T->right = NULL;
+		}
+	}
+	else if () {
 
+	}
+	else if () {
+
+	}
+
+	T->h = Max(Height(T->left), Height(T->right)) + 1;
+
+	return T;
 }
-Position SingleRotateWithLeft(Position K) {
+Position SingleRotateWithLeft(Position K2) {
+	//LL situation
+	Position temp;
+	temp = K2->left;
+	K2->left = temp->right;
+	temp->right = K2;
 
+	K2->h = Max(Height(K2->left), Height(K2->right)) + 1;
+	temp->h = Max(Height(temp->left), Height(temp->right)) + 1;
+
+	return temp;
 }
 Position SingleRotateWithRight(Position K) {
-
+	//RR situation
 }
-Position DoubleRotateWithLeft(Position K) {
-
+Position DoubleRotateWithLeft(Position K3) {
+	//LR situation
+	K3->left = SingleRotateWithRight(K3->left);
+	return SingleRotateWithLeft(K3); // at here the function returns temp(the new top node);
 }
 Position DoubleRotateWithRight(Position K) {
-
-}*/
+	//RL situation
+}
