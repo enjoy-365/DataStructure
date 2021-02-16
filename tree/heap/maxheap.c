@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct HeapStruct {
+	int capacity;
+	int size;
+	elementType* elements;
+};
+
 int main() {
 
 	FILE* fp1, * fp2;
