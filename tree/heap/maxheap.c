@@ -1,11 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef int ElementType;
 struct HeapStruct {
 	int capacity;
 	int size;
-	elementType* elements;
+	ElementType* elements;
 };
+
+void Insert(ElementType x, PriorityQueue h);
+void Find(ElementType x, PriorityQueue h);
+void Print(PriorityQueue h);
 
 int main() {
 
@@ -18,4 +23,15 @@ int main() {
 	fclose(fp2);
 	
 	return 0;
+}
+
+
+void Insert(ElementType x, PriorityQueue h) {
+
+}
+void Find(ElementType x, PriorityQueue h) {
+
+}
+void Print(PriorityQueue h) {
+
 }
