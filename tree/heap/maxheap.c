@@ -1,16 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define HEAPSIZE 100
+
 typedef int ElementType;
+typedef struct HeapStruct* PriorityQueue;
 struct HeapStruct {
-	int capacity;
-	int size;
+	int capacity;// max heap capacity
+	int size;// current heap size
 	ElementType* elements;
 };
 
-void Insert(ElementType x, PriorityQueue h);
+PriorityQueue InitHeap();
+void Insert(ElementType x, PriorityQueue h, FILE* fp2);
 void Find(ElementType x, PriorityQueue h);
 void Print(PriorityQueue h);
+int IsFull(PriorityQueue h);
 
 int main() {
 
@@ -21,17 +26,35 @@ int main() {
 
 	fclose(fp1);
 	fclose(fp2);
-	
+
 	return 0;
 }
 
+PriorityQueue InitHeap() {
+	PriorityQueue h = (PriorityQueue)malloc(sizeof(struct HeapStruct));
+	h->size = 0;
+	h->capacity = HEAPSIZE;
+	h->elements = (ElementType*)malloc(sizeof(int) * h->capacity);
 
-void Insert(ElementType x, PriorityQueue h) {
-
+	return h;
+}
+void Insert(ElementType x, PriorityQueue h, FILE* fp2) {
+	if (IsFull(h)) {
+		fprintf(fp2, "heap is full\n");
+		return;
+	}
+	int i = 0;
+	for (i = ++h->size; h->elements[i / 2] < x; i /= 2) {
+		h->elements[i] = h->elements[i / 2];
+	}
+	h->elements[i] = x;
 }
 void Find(ElementType x, PriorityQueue h) {
 
 }
 void Print(PriorityQueue h) {
 
+}
+int IsFull(PriorityQueue h) {
+	return h->size == h->capacity;
 }
