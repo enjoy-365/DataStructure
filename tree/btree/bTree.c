@@ -9,6 +9,7 @@ typedef struct B_node {
 	int key[order - 1];
 };
 
+B_node* find(B_node x, int key);
 void Insert(int key);
 void Inorder(struct B_node* ptr);
 
@@ -36,7 +37,12 @@ int main(void) {
 
 	return 0;
 }
+B_node* find(B_node x, int key) {
+
+}
 void Insert(int key) {
+	//node split
+
 
 }
 void Inorder(struct B_node* ptr) {
